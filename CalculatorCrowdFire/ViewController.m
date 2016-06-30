@@ -72,12 +72,22 @@
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
+     CGFloat screenWidth = [UIScreen mainScreen].bounds.size.width;
+    CGFloat screeHeight = [UIScreen mainScreen].bounds.size.height-120;
+    CGSize cellSize;
+    
+    int cellWidth = screenWidth/NUMBER_OF_ROWS;
+    int cellHeight = screeHeight/NUMBER_OF_ROWS;
+    
     if(indexPath.row == 15)
-        return CGSizeMake(([UIScreen mainScreen].bounds.size.width/NUMBER_OF_ROWS)*2,self.colView.frame.size.height/NUMBER_OF_ROWS);
+        cellSize= CGSizeMake((cellWidth)*2,cellHeight);
     else if (indexPath.row == [elementsArray count]-1)
-        return CGSizeMake([UIScreen mainScreen].bounds.size.width ,self.colView.frame.size.height/NUMBER_OF_ROWS);
+        cellSize= CGSizeMake(screenWidth ,cellHeight);
     else
-        return CGSizeMake([UIScreen mainScreen].bounds.size.width/NUMBER_OF_ROWS, self.colView.frame.size.height/NUMBER_OF_ROWS);
+        cellSize= CGSizeMake(cellWidth, cellHeight);
+    
+    NSLog(@"%@ ",NSStringFromCGSize(cellSize));
+    return cellSize;
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
